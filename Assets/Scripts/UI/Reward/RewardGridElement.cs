@@ -1,18 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class RewardGridElement : MonoBehaviour
+namespace UI.Reward
 {
-    // Start is called before the first frame update
-    void Start()
+    public class RewardGridElement : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private TextMeshProUGUI dayText;
+        [SerializeField] private TextMeshProUGUI countText;
+        [SerializeField] private Button getButton;
 
-    // Update is called once per frame
-    void Update()
-    {
+        [Space] 
+        [SerializeField] private Sprite completeSprite;
+        [SerializeField] private Sprite ticketSprite;
+        [SerializeField] private Image image;
+
+        private RectTransform _rectTransform;
         
+        #region Properties
+        public Button GetButton => getButton;
+
+        public TextMeshProUGUI DayText => dayText;
+
+        public TextMeshProUGUI CountText => countText;
+        #endregion
+
+        private void Awake()
+        {
+            _rectTransform = image.GetComponent<RectTransform>();
+        }
+
+        public void DayComplete()
+        {
+            image.sprite = completeSprite;
+            _rectTransform.sizeDelta = new Vector2(75,75);
+            countText.enabled = false;
+        }
+
+        public void DayActive()
+        {
+            image.sprite = ticketSprite;
+            _rectTransform.sizeDelta = new Vector2(125,125);
+            countText.enabled = true;
+        }
     }
 }
